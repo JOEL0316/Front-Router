@@ -1,6 +1,9 @@
-// Configuración de la API
-// auth.js - Versión mejorada
-const API_BASE_URL = 'http://localhost:3006/api';
+
+// Configuración dinámica para desarrollo/producción
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3006/api'
+    : 'https://red-admin-backend.onrender.com/api';
+
 const AUTH_API_URL = `${API_BASE_URL}/auth`;
 
 const auth = {
@@ -66,7 +69,7 @@ async function handleLogin(e) {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
@@ -125,17 +128,17 @@ async function handleRegister(e) {
 function checkAuth() {
     const authPages = ['login.html', 'register.html'];
     const isAuthPage = authPages.some(page => window.location.pathname.includes(page));
-    
+
     if (!auth.isAuthenticated() && !isAuthPage) {
         window.location.replace('login.html');
         return false;
     }
-    
+
     if (auth.isAuthenticated() && isAuthPage) {
         window.location.replace('index.html');
         return false;
     }
-    
+
     return true;
 }
 

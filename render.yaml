@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: red-admin-backend
+    runtime: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    env: node
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        value: mongodb+srv://usuario:contraseña@cluster.mongodb.net/red-admin?retryWrites=true&w=majority
+      - key: JWT_SECRET
+        value: tu_super_secreto_jwt
+      - key: FRONTEND_URL
+        value: https://tufrontend.onrender.com
+
+  - type: web
+    name: red-admin-frontend
+    runtime: static
+    staticPublishPath: "./frontend"
+    envVars:
+      - key: API_BASE_URL
+        value: https://red-admin-backend.onrender.com/api
