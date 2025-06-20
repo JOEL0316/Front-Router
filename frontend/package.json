@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "start": "serve -s ./ -l $PORT --no-etag --no-compression",
+        "start": "serve -s ./frontend -l $PORT",
         "build": "echo 'Build no requerido' && exit 0",
         "predeploy": "npm run build",
         "deploy": "echo 'Desplegado en Render'"
@@ -18,17 +18,5 @@
     "engines": {
         "node": ">=18.0.0",
         "npm": ">=9.0.0"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
     }
 }

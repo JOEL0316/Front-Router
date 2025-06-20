@@ -1,11 +1,14 @@
 services:
+  # Backend (Node.js)
   - type: web
     name: red-admin-backend
     runtime: node
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && node server.js
+    buildCommand: npm install
+    startCommand: node server.js
     env: node
     envVars:
+      - key: PORT
+        value: 3006
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
@@ -13,12 +16,18 @@ services:
       - key: JWT_SECRET
         value: tu_super_secreto_jwt
       - key: FRONTEND_URL
-        value: https://tufrontend.onrender.com
+        value: https://red-admin-frontend.onrender.com
 
+  # Frontend (Static)
   - type: web
     name: red-admin-frontend
-    runtime: static
-    staticPublishPath: "./frontend"
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    env: static
     envVars:
+      - key: PORT
+        value: 10000
       - key: API_BASE_URL
         value: https://red-admin-backend.onrender.com/api
+    staticPublishPath: "./frontend"
