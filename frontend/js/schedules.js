@@ -1,6 +1,6 @@
 // schedules.js - Corrige al inicio del archivo
-const SCHEDULES_API_URL = 'http://localhost:3006/api/schedules';
-const DEVICES_API_FOR_SCHEDULES = 'http://localhost:3006/api/devices'; // Nombre diferente
+const SCHEDULES_API_URL = 'https://tu-backend-en-render.com/api';
+const DEVICES_API_FOR_SCHEDULES = 'https://tu-backend-en-render.com/api'; // Nombre diferente
 
 async function loadSchedules() {
     try {

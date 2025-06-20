@@ -47,12 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Registrar Service Worker para PWA
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
                 .then(registration => {
-                    console.log('ServiceWorker registrado con éxito:', registration.scope);
+                    console.log('SW registrado:', registration.scope);
                 })
                 .catch(error => {
-                    console.log('Error al registrar ServiceWorker:', error);
+                    console.error('Error SW:', error);
                 });
         });
     }

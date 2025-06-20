@@ -1,5 +1,5 @@
 // devices.js
-const DEVICES_API_URL = 'http://localhost:3006/api/devices';
+const DEVICES_API_URL = 'https://tu-backend-en-render.com/api';
 
 async function loadDevices() {
     try {
