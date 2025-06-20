@@ -2,7 +2,7 @@
 // Configuración dinámica para desarrollo/producción
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3006/api'
-    : 'https://red-admin-backend.onrender.com/api';
+    : 'https://tu-backend.onrender.com/api';
 
 const AUTH_API_URL = `${API_BASE_URL}/auth`;
 

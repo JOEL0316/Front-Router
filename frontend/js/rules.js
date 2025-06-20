@@ -1,5 +1,5 @@
 // rules.js
-const RULES_API_URL = 'https://tu-backend-en-render.com/api';
+const RULES_API_URL = 'https://tu-backend.onrender.com/api';
 
 async function loadRules() {
     try {
