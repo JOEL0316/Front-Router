@@ -1,0 +1,40 @@
+{
+    "devices": [
+        {
+            "id": 1,
+            "name": "PC Oficina",
+            "ip": "192.168.1.100",
+            "blocked": false
+        },
+        {
+            "id": 2,
+            "name": "Teléfono Juan",
+            "ip": "192.168.1.101",
+            "blocked": true
+        }
+    ],
+    "rules": [
+        {
+            "id": 1,
+            "website": "facebook.com",
+            "blocked": true
+        },
+        {
+            "id": 2,
+            "website": "google.com",
+            "blocked": false
+        }
+    ],
+    "schedules": [
+        {
+            "id": 1,
+            "name": "Bloquear redes sociales",
+            "targetType": "website",
+            "website": "twitter.com",
+            "startTime": "09:00",
+            "endTime": "17:00",
+            "action": "block",
+            "active": true
+        }
+    ]
+}

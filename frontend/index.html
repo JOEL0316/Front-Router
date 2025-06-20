@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Red</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Admin Red</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="devices-tab">Dispositivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="rules-tab">Reglas Web</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="schedules-tab">Horarios</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light" id="logout-btn">Cerrar Sesión</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Sección Dispositivos -->
+        <div id="devices-section">
+            <h2>Dispositivos Conectados</h2>
+            <div class="mb-3">
+                <button class="btn btn-success" id="refresh-devices">
+                    <i class="bi bi-arrow-clockwise"></i> Actualizar
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Dirección IP</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="devices-list">
+                        <!-- Los dispositivos se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sección Reglas Web -->
+        <div id="rules-section" class="d-none">
+            <h2>Reglas de Sitios Web</h2>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="new-rule" placeholder="Ejemplo.com">
+                        <button class="btn btn-primary" id="add-rule">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sitio Web</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rules-list">
+                        <!-- Las reglas se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sección Horarios -->
+        <div id="schedules-section" class="d-none">
+            <h2>Reglas por Horario</h2>
+            <div class="mb-3">
+                <button class="btn btn-primary" id="add-schedule" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+                    <i class="bi bi-plus-circle"></i> Nueva Regla
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Sitio/Dispositivo</th>
+                            <th>Horario</th>
+                            <th>Acción</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedules-list">
+                        <!-- Los horarios se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar horario -->
+    <div class="modal fade" id="scheduleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nueva Regla de Horario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="schedule-form">
+                        <div class="mb-3">
+                            <label for="rule-name" class="form-label">Nombre de la Regla</label>
+                            <input type="text" class="form-control" id="rule-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="target-type" class="form-label">Aplicar a:</label>
+                            <select class="form-select" id="target-type">
+                                <option value="device">Dispositivo</option>
+                                <option value="website">Sitio Web</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="device-target-container">
+                            <label for="device-target" class="form-label">Dispositivo</label>
+                            <select class="form-select" id="device-target">
+                                <!-- Se llenará con JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3 d-none" id="website-target-container">
+                            <label for="website-target" class="form-label">Sitio Web</label>
+                            <input type="text" class="form-control" id="website-target" placeholder="ejemplo.com">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="start-time" class="form-label">Hora de Inicio</label>
+                                <input type="time" class="form-control" id="start-time" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="end-time" class="form-label">Hora de Fin</label>
+                                <input type="time" class="form-control" id="end-time" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="action-type" class="form-label">Acción</label>
+                            <select class="form-select" id="action-type">
+                                <option value="block">Bloquear</option>
+                                <option value="allow">Permitir</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="active-rule" checked>
+                            <label class="form-check-label" for="active-rule">Regla activa</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-schedule">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/devices.js"></script>
+    <script src="js/rules.js"></script>
+    <script src="js/schedules.js"></script>
+</body>
+</html>
